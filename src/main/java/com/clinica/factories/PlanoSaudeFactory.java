@@ -3,7 +3,7 @@ package com.clinica.factories;
 import com.clinica.adapter.*;
 import com.clinica.plano.*;
 
-public class PlanoSaudeAdapterFactory {
+public class PlanoSaudeFactory {
 
     public static PlanoSaudeAdapter criarPlanoSaudeAdapter(String nomePlano) {
         switch (nomePlano.toLowerCase()) {

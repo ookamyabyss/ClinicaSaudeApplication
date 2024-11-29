@@ -11,7 +11,7 @@ public class PlanoSaudeUnimedAdapter implements PlanoSaudeAdapter {
     }
 
     @Override
-    public String obterNomePlano() {
+    public String getNomePlano() {
         return planoSaudeUnimed.getNomePlano();
     }
 

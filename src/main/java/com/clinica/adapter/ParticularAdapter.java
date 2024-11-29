@@ -11,7 +11,7 @@ public class ParticularAdapter implements PlanoSaudeAdapter {
     }
 
     @Override
-    public String obterNomePlano() {
+    public String getNomePlano() {
         return particular.getNomePlano();
     }
 

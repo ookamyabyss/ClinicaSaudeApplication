@@ -12,7 +12,7 @@ public class PlanoSaudeBradescoAdapter implements PlanoSaudeAdapter {
     }
 
     @Override
-    public String obterNomePlano() {
+    public String getNomePlano() {
         // Retorna o nome do plano de saúde específico
         return planoSaudeBradesco.getNomePlano();
     }

@@ -1,23 +1,21 @@
 package com.clinica.models;
 
-import java.time.LocalDate;
-
 import com.clinica.adapter.PlanoSaudeAdapter;
 
 public class Paciente {
     private String nome;
     private String documentoIdentificacao;
     private String cpf;
-    private LocalDate dataNascimento; // Alterado para LocalDate
+    private int idade; // Alterado para int
     private String sexo;
     private Responsavel responsavel;
     private PlanoSaudeAdapter planoSaude;
 
-    public Paciente(String nome, String documentoIdentificacao, String cpf, LocalDate dataNascimento, String sexo) {
+    public Paciente(String nome, String documentoIdentificacao, String cpf, int idade, String sexo) {
         this.nome = nome;
         this.documentoIdentificacao = documentoIdentificacao;
         this.cpf = cpf;
-        this.dataNascimento = dataNascimento;
+        this.idade = idade;
         this.sexo = sexo;
     }
 
@@ -46,12 +44,12 @@ public class Paciente {
         this.cpf = cpf;
     }
 
-    public LocalDate getDataNascimento() { // Alterado para LocalDate
-        return dataNascimento;
+    public int getIdade() {
+        return idade;
     }
 
-    public void setDataNascimento(LocalDate dataNascimento) { // Alterado para LocalDate
-        this.dataNascimento = dataNascimento;
+    public void setIdade(int idade) {
+        this.idade = idade;
     }
 
     public String getSexo() {
