@@ -17,7 +17,7 @@ public class AtendimentoFacade {
         }
 
         // Calcular o valor final da consulta
-        double desconto = planoAdapter.calcularValorCobertura();
+        double desconto = planoAdapter.calcularValorConsulta(valorConsulta);
         return valorConsulta - desconto;
     }
 }

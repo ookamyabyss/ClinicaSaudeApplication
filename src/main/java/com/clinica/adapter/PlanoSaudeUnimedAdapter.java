@@ -21,7 +21,7 @@ public class PlanoSaudeUnimedAdapter implements PlanoSaudeAdapter {
     }
 
     @Override
-    public double calcularValorCobertura() {
-        return planoSaudeUnimed.getValorCobertura();
+    public double calcularValorConsulta(double valorConsulta) {
+        return planoSaudeUnimed.calcularDesconto(valorConsulta);
     }
 }

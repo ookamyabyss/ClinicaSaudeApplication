@@ -21,7 +21,7 @@ public class PlanoSaudeAmilAdapter implements PlanoSaudeAdapter {
     }
 
     @Override
-    public double calcularValorCobertura() {
-        return planoSaudeAmil.getValorCobertura();
+    public double calcularValorConsulta(double valorConsulta) {
+        return planoSaudeAmil.calcularDesconto(valorConsulta);
     }
 }

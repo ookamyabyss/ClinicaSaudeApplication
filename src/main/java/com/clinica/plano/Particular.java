@@ -13,8 +13,4 @@ public class Particular {
     public boolean isCoberturaValida() {
         return true; // Sempre válido para particular
     }
-
-    public double getValorCobertura() {
-        return 0.00; // Sem cobertura para particular
-    }
 }

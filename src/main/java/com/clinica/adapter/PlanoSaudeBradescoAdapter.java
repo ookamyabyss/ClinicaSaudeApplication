@@ -24,8 +24,8 @@ public class PlanoSaudeBradescoAdapter implements PlanoSaudeAdapter {
     }
 
     @Override
-    public double calcularValorCobertura() {
+    public double calcularValorConsulta(double valorConsulta) {
         // Retorna o valor da cobertura
-        return planoSaudeBradesco.getValorCobertura();
+        return planoSaudeBradesco.calcularDesconto(valorConsulta);
     }
 }

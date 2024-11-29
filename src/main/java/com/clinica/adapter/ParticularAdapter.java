@@ -21,7 +21,7 @@ public class ParticularAdapter implements PlanoSaudeAdapter {
     }
 
     @Override
-    public double calcularValorCobertura() {
-        return particular.getValorCobertura();
+    public double calcularValorConsulta(double valorConsulta) {
+        return particular.calcularDesconto(valorConsulta);
     }
 }
