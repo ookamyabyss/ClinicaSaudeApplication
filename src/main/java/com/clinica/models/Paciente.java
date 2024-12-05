@@ -7,11 +7,11 @@ public class Paciente {
     private String documentoIdentificacao;
     private String cpf;
     private int idade; // Alterado para int
-    private String sexo;
+    private char sexo;
     private Responsavel responsavel;
     private PlanoSaudeAdapter planoSaude;
 
-    public Paciente(String nome, String documentoIdentificacao, String cpf, int idade, String sexo) {
+    public Paciente(String nome, String documentoIdentificacao, String cpf, int idade, char sexo) {
         this.nome = nome;
         this.documentoIdentificacao = documentoIdentificacao;
         this.cpf = cpf;
@@ -52,11 +52,11 @@ public class Paciente {
         this.idade = idade;
     }
 
-    public String getSexo() {
+    public char getSexo() {
         return sexo;
     }
 
-    public void setSexo(String sexo) {
+    public void setSexo(char sexo) {
         this.sexo = sexo;
     }
 
