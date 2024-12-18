@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.clinica.models.Procedimento;
+import com.clinica.adapter.PlanoSaudeAdapter;
 import com.clinica.factories.ProcedimentoFactory;
 import com.clinica.models.Especialidade;
+import com.clinica.models.Paciente;
 
 public class ClinicaSingleton {
     private static ClinicaSingleton instancia;
@@ -124,11 +126,25 @@ public class ClinicaSingleton {
         }
 
         disponibilidadeDias.put(dia, agendamentos + 1);
-        System.out.println("Agendamento realizado com sucesso!");
-        System.out.println("Procedimento: " + procedimento.getNome());
-        System.out.println("Especialidade: " + procedimento.getEspecialidade());
-        System.out.println("Valor: R$" + procedimento.getValor());
-        System.out.println("Dia: " + dia);
+        System.out.printf("Agendamento realizado com sucesso!%nProcedimento: %s%nEspecialidade: %s%nValor: R$%.2f%nDia: %s%n",
+                procedimento.getNome(), procedimento.getEspecialidade(), procedimento.getValor(), dia);
         return true;
+    }
+
+    // Valida a cobertura do plano de saúde
+    public boolean validarCoberturaPlano(PlanoSaudeAdapter planoAdapter) {
+        if (planoAdapter == null) {
+            throw new IllegalArgumentException("Plano de saúde não pode ser nulo.");
+        }
+        return planoAdapter.validarCobertura(null); // Método assumido como implementado no adapter
+    }
+
+    // Calcula o valor da consulta com base em regras de negócio
+    public double calcularValorConsulta(Paciente paciente) {
+        if (paciente == null) {
+            throw new IllegalArgumentException("Paciente inválido.");
+        }
+        // Simulação de cálculo de valor final com possíveis descontos
+        return procedimentos.values().stream().mapToDouble(Procedimento::getValor).sum();
     }
 }

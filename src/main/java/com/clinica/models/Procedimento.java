@@ -33,6 +33,18 @@ public class Procedimento {
     }
 
     public void setValor(double valor) {
-        this.valor = valor;
+        // Validação para garantir que o valor é positivo
+        if (valor > 0) {
+            this.valor = valor;
+        } else {
+            throw new IllegalArgumentException("O valor do procedimento deve ser maior que zero.");
+        }
+    }
+
+    @Override
+    public String toString() {
+        // Representação textual do objeto, com formatação de valor
+        return String.format("Procedimento [Especialidade: %s, Nome: %s, Valor: R$%.2f]",
+                especialidade, nome, valor);
     }
 }

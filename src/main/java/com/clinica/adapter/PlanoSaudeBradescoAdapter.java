@@ -1,31 +1,37 @@
 package com.clinica.adapter;
 
-import com.clinica.plano.PlanoSaudeBradesco;
+import com.clinica.models.Procedimento;
 
 public class PlanoSaudeBradescoAdapter implements PlanoSaudeAdapter {
 
-    private PlanoSaudeBradesco planoSaudeBradesco;
-
-    // Construtor
-    public PlanoSaudeBradescoAdapter(PlanoSaudeBradesco planoSaudeBradesco) {
-        this.planoSaudeBradesco = planoSaudeBradesco;
+    @Override
+    public boolean autorizarProcedimento(Procedimento procedimento) {
+        System.out.println("Autorizando procedimento no Bradesco: " + procedimento.getNome());
+        return true; // Simula autorização
     }
 
     @Override
-    public String getNomePlano() {
-        // Retorna o nome do plano de saúde específico
-        return planoSaudeBradesco.getNomePlano();
+    public double calcularCoparticipacao(Procedimento procedimento) {
+        return procedimento.getValor() * 0.2; // Coparticipação de 20%
     }
 
     @Override
-    public boolean validarCobertura() {
-        // Verifica se a cobertura é válida
-        return planoSaudeBradesco.isCoberturaValida();
+    public double calcularCobranca(Procedimento procedimento) {
+        double coparticipacao = calcularCoparticipacao(procedimento);
+        System.out.println("Cálculo de cobrança no Bradesco: " + coparticipacao);
+        return coparticipacao; // Retorna o valor da coparticipação
     }
 
     @Override
-    public double calcularValorConsulta(double valorConsulta) {
-        // Retorna o valor da cobertura
-        return planoSaudeBradesco.calcularDesconto(valorConsulta);
+    public boolean validarCobertura(Procedimento procedimento) {
+        // Lógica de validação de cobertura para o plano Bradesco
+        // Exemplo: Procedimentos com valor acima de 1000 não são cobertos
+        if (procedimento.getValor() > 1000) {
+            System.out.println("Procedimento não coberto pelo plano Bradesco.");
+            return false;
+        }
+        System.out.println("Procedimento coberto pelo plano Bradesco.");
+        return true; // Caso contrário, considera que o procedimento é coberto
     }
 }
+

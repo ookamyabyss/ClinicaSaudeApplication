@@ -1,7 +1,7 @@
 package com.clinica.facades;
 
 import com.clinica.adapter.PlanoSaudeAdapter;
-import com.clinica.factories.PlanoSaudeFactory;
+import com.clinica.factories.PlanoSaudeSingletonFactory;
 import com.clinica.models.Paciente;
 import com.clinica.singleton.ClinicaSingleton;
 
