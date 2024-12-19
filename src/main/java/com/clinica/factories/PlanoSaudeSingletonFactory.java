@@ -1,12 +1,13 @@
 package com.clinica.factories;
 
-import com.clinica.adapter.*;
+import com.clinica.strategys.*;
 
 public class PlanoSaudeSingletonFactory {
 
     private static PlanoSaudeSingletonFactory instance;
 
-    private PlanoSaudeSingletonFactory() {}
+    private PlanoSaudeSingletonFactory() {
+    }
 
     public static PlanoSaudeSingletonFactory getInstance() {
         if (instance == null) {
@@ -15,18 +16,18 @@ public class PlanoSaudeSingletonFactory {
         return instance;
     }
 
-    public PlanoSaudeAdapter getPlanoSaudeAdapter(String nomePlano) {
+    public PlanoSaude cadastrarPlanoSaude(String nomePlano) {
         switch (nomePlano.toLowerCase()) {
             case "bradesco":
-                return new PlanoSaudeBradescoAdapter();
+                return new PlanoSaudeBradescoStrategy("bradesco");
             case "unimed":
-                return new PlanoSaudeUnimedAdapter();
+                return new PlanoSaudeUnimedStrategy("unimed");
             case "amil":
-                return new PlanoSaudeAmilAdapter();
+                return new PlanoSaudeAmilStrategy("amil");
             case "particular":
-                return new ParticularAdapter();
+                return new ParticularStrategy("particular");
             case "hapvida":
-                return new PlanoSaudeHapvidaAdapter();
+                return new PlanoSaudeHapvidaStrategy("hapvida");
             default:
                 throw new IllegalArgumentException("Plano de saúde desconhecido: " + nomePlano);
         }

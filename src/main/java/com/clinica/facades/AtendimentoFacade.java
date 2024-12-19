@@ -18,7 +18,7 @@ public class AtendimentoFacade {
         atendente.agendarProcedimento("Consulta Pediatria", "Segunda-feira");
         atendente.agendarProcedimento("Consulta Pediatria", "Segunda-feira");
         atendente.agendarProcedimento("Consulta Pediatria", "Segunda-feira");
-        atendente.agendarProcedimento("Consulta Pediatria", "Segunda-feira"); // Deve falhar
+        atendente.agendarProcedimento("Consulta Pediatria", "Segunda-feira"); // Deve
 
         atendente.exibirDisponibilidade();
     }

@@ -1,22 +1,24 @@
 package com.clinica.models;
 
-import com.clinica.adapter.PlanoSaudeAdapter;
+import com.clinica.strategys.PlanoSaude;
 
 public class Paciente {
     private String nome;
     private String documentoIdentificacao;
     private String cpf;
-    private int idade; // Alterado para int
+    private int idade;
     private char sexo;
     private Responsavel responsavel;
-    private PlanoSaudeAdapter planoSaude;
+    private PlanoSaude planoSaude;
 
-    public Paciente(String nome, String documentoIdentificacao, String cpf, int idade, char sexo) {
+    public Paciente(String nome, String documentoIdentificacao, String cpf, int idade, char sexo,
+            PlanoSaude planoSaude) {
         this.nome = nome;
         this.documentoIdentificacao = documentoIdentificacao;
         this.cpf = cpf;
         this.idade = idade;
         this.sexo = sexo;
+        this.planoSaude = planoSaude;
     }
 
     // Getters e setters
@@ -68,11 +70,11 @@ public class Paciente {
         this.responsavel = responsavel;
     }
 
-    public PlanoSaudeAdapter getPlanoSaude() {
+    public PlanoSaude getPlanoSaude() {
         return planoSaude;
     }
 
-    public void setPlanoSaude(PlanoSaudeAdapter planoSaude) {
+    public void setPlanoSaude(PlanoSaude planoSaude) {
         this.planoSaude = planoSaude;
     }
 

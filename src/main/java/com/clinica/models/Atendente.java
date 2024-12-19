@@ -2,8 +2,8 @@ package com.clinica.models;
 
 import java.util.Map;
 
-import com.clinica.adapter.PlanoSaudeAdapter;
 import com.clinica.singleton.ClinicaSingleton;
+import com.clinica.strategys.PlanoSaude;
 
 public class Atendente {
     private final ClinicaSingleton clinica;
@@ -15,68 +15,83 @@ public class Atendente {
     }
 
     public void iniciarAtendimento() {
-        System.out.println("Iniciando atendimento para o paciente: " + paciente.getNome());
+        System.out.println("\nIniciando atendimento para o paciente: " + paciente.getNome());
 
         if (paciente.getIdade() < 18 & paciente.getResponsavel() == null) {
-            throw new RuntimeException("Responsável necessário para atendimento.");
+            throw new RuntimeException("\nResponsável necessário para atendimento.");
         }
     }
 
     public void exibirProcedimentos() {
-        System.out.println("Lista de Procedimentos:");
+        System.out.println("\nLista de Procedimentos:");
         for (Procedimento procedimento : this.clinica.getProcedimentos().values()) {
-            System.out.println("- " + procedimento.getNome() + " (" + procedimento.getEspecialidade() + "): R$"
+            System.out.println("\n- " + procedimento.getNome() + " (" + procedimento.getEspecialidade() + "): R$"
                     + procedimento.getValor());
         }
     }
 
     public void exibirDisponibilidade() {
-        System.out.println("Disponibilidade por Dia:");
+        System.out.println("\nDisponibilidade por Dia:");
         for (Map.Entry<String, Integer> entrada : this.clinica.getDisponibilidadeDias().entrySet()) {
             String status = entrada.getValue() >= this.clinica.getLimiteAgendamentos() ? "Indisponível" : "Disponível";
-            System.out.println("- " + entrada.getKey() + ": " + status + " (" + entrada.getValue() + " agendamentos)");
+            System.out.println("\n- " + entrada.getKey() + ": " + status + " (" + entrada.getValue() + " agendamentos)");
         }
     }
 
-    public boolean agendarProcedimento(String procedimentoNome, String dia) {
-        Procedimento procedimento = this.clinica.getProcedimentos().get(procedimentoNome);
-        if (procedimento == null) {
-            System.out.println("Procedimento não encontrado: " + procedimentoNome);
-            return false;
+    private boolean validarCoberturaPlano(PlanoSaude solicitacaoPlanoSaude, Procedimento solicitacaoProcedimento) {
+        if (solicitacaoPlanoSaude == null) {
+            throw new IllegalArgumentException("\nPlano de saúde não pode ser nulo.");
         }
 
-        if (!this.clinica.getDisponibilidadeDias().containsKey(dia)) {
-            System.out.println("Dia inválido: " + dia);
-            return false;
+        boolean coberturaProcedimento = solicitacaoPlanoSaude.validarCobertura(solicitacaoProcedimento);
+
+        boolean coberturaPlano = this.clinica.getPlanosClinica().get(solicitacaoPlanoSaude.getNome()) != null ? true
+                : false;
+
+        if (!coberturaProcedimento) {
+            throw new IllegalArgumentException("\nPlano de saúde não cobre o procedimento");
+
+        } else if (!coberturaPlano) {
+            throw new IllegalArgumentException("\nClinica nao aceita o plano de saúde");
+
         }
 
+        return (coberturaProcedimento && coberturaPlano);
+
+    }
+
+    public boolean agendarProcedimento(String solicitacaoProcedimentoNome, String dia) {
+        Procedimento solicitacaoProcedimento = this.clinica.getProcedimentos().get(solicitacaoProcedimentoNome);
         int agendamentos = this.clinica.getDisponibilidadeDias().get(dia);
-        if (agendamentos >= this.clinica.getLimiteAgendamentos()) {
-            System.out.println("Dia indisponível para agendamentos: " + dia);
+
+        if (solicitacaoProcedimento == null) {
+            System.out.println("\nProcedimento não encontrado: " + solicitacaoProcedimentoNome);
             return false;
+        } else if (!this.clinica.getDisponibilidadeDias().containsKey(dia)) {
+            System.out.println("\nDia inválido: " + dia);
+            return false;
+        } else if (agendamentos >= this.clinica.getLimiteAgendamentos()) {
+            System.out.println("\nDia indisponível para agendamentos: " + dia);
+            return false;
+        } else {
+
+            boolean validacaoPlano = this.validarCoberturaPlano(this.paciente.getPlanoSaude(), solicitacaoProcedimento);
+
+            if (validacaoPlano) {
+                this.clinica.getDisponibilidadeDias().put(dia, agendamentos + 1);
+                double valorFinal = this.paciente.getPlanoSaude().calcularCobranca(solicitacaoProcedimento);
+
+                System.out.printf(
+                        "\nAgendamento realizado com sucesso!%nProcedimento: %s%nEspecialidade: %s%nValor: R$%.2f%nDia: %s%n",
+                        solicitacaoProcedimento.getNome(), solicitacaoProcedimento.getEspecialidade(),
+                        valorFinal, dia);
+                return true;
+            } else {
+                System.out.println("\nHouve um problema ao realizar o agendamento, tente novamente");
+                return false;
+            }
+
         }
 
-        this.clinica.getDisponibilidadeDias().put(dia, agendamentos + 1);
-        System.out.printf(
-                "Agendamento realizado com sucesso!%nProcedimento: %s%nEspecialidade: %s%nValor: R$%.2f%nDia: %s%n",
-                procedimento.getNome(), procedimento.getEspecialidade(), procedimento.getValor(), dia);
-        return true;
-    }
-
-    // Valida a cobertura do plano de saúde
-    public boolean validarCoberturaPlano(PlanoSaudeAdapter planoAdapter) {
-        if (planoAdapter == null) {
-            throw new IllegalArgumentException("Plano de saúde não pode ser nulo.");
-        }
-        return planoAdapter.validarCobertura(null); // Método assumido como implementado no adapter
-    }
-
-    // Calcula o valor da consulta com base em regras de negócio
-    public double calcularValorConsulta(Paciente paciente) {
-        if (paciente == null) {
-            throw new IllegalArgumentException("Paciente inválido.");
-        }
-        // Simulação de cálculo de valor final com possíveis descontos
-        return this.clinica.getProcedimentos().values().stream().mapToDouble(Procedimento::getValor).sum();
     }
 }

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.clinica.models.Procedimento;
+import com.clinica.strategys.PlanoSaude;
+import com.clinica.factories.PlanoSaudeSingletonFactory;
 import com.clinica.factories.ProcedimentoFactory;
 import com.clinica.models.Especialidade;
 
@@ -11,18 +13,23 @@ public class ClinicaSingleton {
     private static ClinicaSingleton instancia;
     private String nome;
     private String endereco;
+    private boolean aceitaParticular;
     private final Map<String, Procedimento> procedimentos;
+    private final Map<String, PlanoSaude> planosClinica;
     private final Map<String, Integer> disponibilidadeDias;
     private static final int limiteAgendamentos = 3;
 
     private ClinicaSingleton() {
         this.nome = "Clínica Pesky Blinders";
         this.endereco = "Rua Barão do Triunfo";
+        this.aceitaParticular = true;
         procedimentos = new HashMap<>();
         disponibilidadeDias = new HashMap<>();
+        planosClinica = new HashMap<>();
 
         inicializarProcedimentos();
         inicializarDisponibilidadeDias();
+        inicializarPlanos();
     }
 
     // Método estático para obter a instância única
@@ -35,6 +42,18 @@ public class ClinicaSingleton {
             }
         }
         return instancia;
+    }
+
+    private void inicializarPlanos() {
+        adicionarPlano(PlanoSaudeSingletonFactory.getInstance().cadastrarPlanoSaude("bradesco"));
+        adicionarPlano(PlanoSaudeSingletonFactory.getInstance().cadastrarPlanoSaude("hapvida"));
+        if (aceitaParticular) {
+            adicionarPlano(PlanoSaudeSingletonFactory.getInstance().cadastrarPlanoSaude("particular"));
+        }
+    }
+
+    public void adicionarPlano(PlanoSaude plano) {
+        planosClinica.put(plano.getNome(), plano);
     }
 
     private void inicializarProcedimentos() {
@@ -81,8 +100,8 @@ public class ClinicaSingleton {
     }
 
     public void exibirInformacoes() {
-        System.out.println("Nome: " + nome);
-        System.out.println("Endereço: " + endereco);
+        System.out.println("\nNome: " + nome);
+        System.out.println("\nEndereço: " + endereco);
     }
 
     public Map<String, Procedimento> getProcedimentos() {
@@ -93,7 +112,12 @@ public class ClinicaSingleton {
         return disponibilidadeDias;
     }
 
+    public Map<String, PlanoSaude> getPlanosClinica() {
+        return planosClinica;
+    }
+
     public int getLimiteAgendamentos() {
         return limiteAgendamentos;
     }
+
 }
