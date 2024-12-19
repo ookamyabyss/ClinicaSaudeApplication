@@ -11,15 +11,8 @@ public class PlanoSaudeBradescoAdapter implements PlanoSaudeAdapter {
     }
 
     @Override
-    public double calcularCoparticipacao(Procedimento procedimento) {
-        return procedimento.getValor() * 0.2; // Coparticipação de 20%
-    }
-
-    @Override
     public double calcularCobranca(Procedimento procedimento) {
-        double coparticipacao = calcularCoparticipacao(procedimento);
-        System.out.println("Cálculo de cobrança no Bradesco: " + coparticipacao);
-        return coparticipacao; // Retorna o valor da coparticipação
+        return procedimento.getValor();
     }
 
     @Override

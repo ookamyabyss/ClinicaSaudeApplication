@@ -11,15 +11,8 @@ public class PlanoSaudeUnimedAdapter implements PlanoSaudeAdapter {
     }
 
     @Override
-    public double calcularCoparticipacao(Procedimento procedimento) {
-        return procedimento.getValor() * 0.15; // Coparticipação de 15%
-    }
-
-    @Override
     public double calcularCobranca(Procedimento procedimento) {
-        double coparticipacao = calcularCoparticipacao(procedimento);
-        System.out.println("Cálculo de cobrança na Unimed: " + coparticipacao);
-        return coparticipacao; // Retorna o valor da coparticipação
+        return procedimento.getValor() * 0.15;
     }
 
     @Override

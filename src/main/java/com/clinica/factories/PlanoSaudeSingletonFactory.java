@@ -25,6 +25,8 @@ public class PlanoSaudeSingletonFactory {
                 return new PlanoSaudeAmilAdapter();
             case "particular":
                 return new ParticularAdapter();
+            case "hapvida":
+                return new PlanoSaudeHapvidaAdapter();
             default:
                 throw new IllegalArgumentException("Plano de saúde desconhecido: " + nomePlano);
         }
