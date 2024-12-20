@@ -8,10 +8,12 @@ import com.clinica.models.Procedimento;
 public abstract class PlanoSaude {
     protected String nome;
     private final Map<String, Procedimento> procedimentos;
+    protected double percentualCoparticipacao;
 
-    public PlanoSaude(String nome) {
+    public PlanoSaude(String nome, double percentualCoparticipacao) {
         this.nome = nome;
         this.procedimentos = new HashMap<>();
+        this.percentualCoparticipacao = percentualCoparticipacao;
     }
 
     public String getNome() {
@@ -23,13 +25,14 @@ public abstract class PlanoSaude {
     }
 
     public double calcularCobranca(Procedimento solicitacaoProcedimento) {
-        Procedimento coberturaProcedimento = this.procedimentos.get(solicitacaoProcedimento.getNome());
-        return (solicitacaoProcedimento.getValor() - coberturaProcedimento.getValor());
+        // Procedimento coberturaProcedimento =
+        // this.procedimentos.get(solicitacaoProcedimento.getNome());
+        return (solicitacaoProcedimento.getValor() * percentualCoparticipacao);
     };
 
     public boolean validarCobertura(Procedimento solicitacaoProcedimento) {
         Procedimento coberturaProcedimento = this.procedimentos.get(solicitacaoProcedimento.getNome());
-        if (this.getNome().toLowerCase() == "particular") {
+        if (this.getNome().toLowerCase().equals("particular")) {
             return true;
         } else if (coberturaProcedimento == null) {
             System.out.println("\nProcedimento não encontrado: " + solicitacaoProcedimento.getNome());

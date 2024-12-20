@@ -5,7 +5,7 @@ import com.clinica.models.Procedimento;
 public class ParticularStrategy extends PlanoSaude {
 
     public ParticularStrategy(String nome) {
-        super(nome);
+        super(nome, 1);
     }
 
     @Override

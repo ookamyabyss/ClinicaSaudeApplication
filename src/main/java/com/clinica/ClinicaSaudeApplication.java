@@ -12,7 +12,7 @@ public class ClinicaSaudeApplication {
         // Cadastro de paciente
         Paciente paciente = PacienteFactory.cadastrarPaciente("Pedro Victor Benevides",
                 "1234567889", "12345678998", 80,
-                'M', PlanoSaudeSingletonFactory.getInstance().cadastrarPlanoSaude("bradesco"));
+                'M', PlanoSaudeSingletonFactory.getInstance().cadastrarPlanoSaude("hapvida"));
 
         atendimentoFacade.processarAtendimento(paciente);
 

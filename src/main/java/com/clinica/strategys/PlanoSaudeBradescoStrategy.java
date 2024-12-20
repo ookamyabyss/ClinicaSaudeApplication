@@ -6,7 +6,7 @@ import com.clinica.models.Especialidade;
 public class PlanoSaudeBradescoStrategy extends PlanoSaude {
 
     public PlanoSaudeBradescoStrategy(String nome) {
-        super(nome);
+        super(nome, 0);
         inicializarProcedimentos();
     }
 
