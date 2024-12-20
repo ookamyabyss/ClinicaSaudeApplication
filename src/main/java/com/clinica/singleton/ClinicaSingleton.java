@@ -67,6 +67,18 @@ public class ClinicaSingleton {
                 ProcedimentoFactory.criarProcedimento(Especialidade.DERMATOLOGIA, "Biópsia de Pele", 250.00));
         adicionarProcedimento(ProcedimentoFactory.criarProcedimento(Especialidade.ENDOCRINOLOGIA,
                 "Consulta Endocrinologista", 220.00));
+
+        if (aceitaParticular) {
+            adicionarProcedimento(
+                    ProcedimentoFactory.criarProcedimento(Especialidade.PEDIATRIA, "Consulta Particular Pediatria",
+                            300.00));
+            adicionarProcedimento(
+                    ProcedimentoFactory.criarProcedimento(Especialidade.DERMATOLOGIA,
+                            "Consulta Particular Dermatologia", 350.00));
+            adicionarProcedimento(
+                    ProcedimentoFactory.criarProcedimento(Especialidade.ENDOCRINOLOGIA,
+                            "Consulta Particular Endocrinologista", 400.00));
+        }
     }
 
     public void adicionarProcedimento(Procedimento procedimento) {

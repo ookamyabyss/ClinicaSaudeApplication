@@ -34,7 +34,8 @@ public class Atendente {
         System.out.println("\nDisponibilidade por Dia:");
         for (Map.Entry<String, Integer> entrada : this.clinica.getDisponibilidadeDias().entrySet()) {
             String status = entrada.getValue() >= this.clinica.getLimiteAgendamentos() ? "Indisponível" : "Disponível";
-            System.out.println("\n- " + entrada.getKey() + ": " + status + " (" + entrada.getValue() + " agendamentos)");
+            System.out.println(
+                "\n- " + entrada.getKey() + ": " + status + " (" + entrada.getValue() + " agendamentos)");
         }
     }
 

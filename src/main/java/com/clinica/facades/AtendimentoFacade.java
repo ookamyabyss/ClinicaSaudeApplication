@@ -15,10 +15,10 @@ public class AtendimentoFacade {
 
         atendente.exibirProcedimentos();
 
+        // atendente.agendarProcedimento("Consulta Pediatria", "Segunda-feira");
         atendente.agendarProcedimento("Consulta Pediatria", "Segunda-feira");
-        atendente.agendarProcedimento("Consulta Pediatria", "Segunda-feira");
-        atendente.agendarProcedimento("Consulta Pediatria", "Segunda-feira");
-        atendente.agendarProcedimento("Consulta Pediatria", "Segunda-feira"); // Deve
+        // atendente.agendarProcedimento("Consulta Pediatria", "Segunda-feira");
+        // atendente.agendarProcedimento("Consulta Pediatria", "Segunda-feira"); // Deve
 
         atendente.exibirDisponibilidade();
     }
